@@ -8,74 +8,89 @@ $ open https://git-scm.com
 
 ## Tasks
 
-- [ ] 1. Создать публичный репозиторий с названием **lab02** и с лиценцией **MIT**
-- [ ] 2. Сгенирировать токен для доступа к сервису **GitHub** с правами **repo**
-- [ ] 3. Ознакомиться со ссылками учебного материала
-- [ ] 4. Выполнить инструкцию учебного материала
-- [ ] 5. Составить отчет и отправить ссылку личным сообщением в **Slack**
+- [X] 1. Создать публичный репозиторий с названием **lab02** и с лиценцией **MIT**
+- [X] 2. Сгенирировать токен для доступа к сервису **GitHub** с правами **repo**
+- [X] 3. Ознакомиться со ссылками учебного материала
+- [X] 4. Выполнить инструкцию учебного материала
+- [X] 5. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
+Создание переменных окружения 'GITHUB_USERNAME,GITHUB_EMAIL, 'GITHUB_TOKEN , а также связывание команды edit с вызовом текстового редактора Sublime Text.
 
-```ShellSession
-$ export GITHUB_USERNAME=<имя_пользователя>
-$ export GITHUB_EMAIL=<адрес_почтового_ящика>
+$ export GITHUB_USERNAME=hijadelaluuna
+$ export GITHUB_EMAIL=anastasiyasechina46@gmail.com
 $ export GITHUB_TOKEN=<сгенирированный_токен>
-$ alias edit=<nano|vi|vim|subl>
-```
+$ alias edit=nano
 
-```ShellSession
-$ cd ${GITHUB_USERNAME}/workspace
+Начало работы в рабочем каталоге **workspace** и активация исполняемых файлов.
+
+$ cd $hijadelaluuna/workspace
 $ source scripts/activate
-```
 
-```ShellSession
+Создание директории **~/.config** и файлa 'hub.
+
 $ mkdir ~/.config
 $ cat > ~/.config/hub <<EOF
 github.com:
-- user: ${GITHUB_USERNAME}
+- user: $hijadelaluuna
   oauth_token: ${GITHUB_TOKEN}
   protocol: https
 EOF
 $ git config --global hub.protocol https
-```
 
-```ShellSession
+Создание каталога для хранения локальной копии удаленного репозитория.
+
+
 $ mkdir projects/lab02 && cd projects/lab02
-$ git init
-$ git config --global user.name ${GITHUB_USERNAME}
-$ git config --global user.email ${GITHUB_EMAIL}
+$ git init # Инициализация репозитория.
+$ git config --global user.name $hijadelaluuna
+$ git config --global user.email $anastasiyasechina46@gmail.com
 # check your git global settings
 $ git config -e --global
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab02.git
-$ git pull origin master
-$ touch README.md
-$ git status
-$ git add README.md
-$ git commit -m"added README.md"
+[user]
+        email = anastasiyasechina46@gmail.com
+        name = hijadelaluuna
+[hub]
+        protocol = https
+$ sudo git remote add origin https://github.com/$hijadelaluuna/lab02.git # Подключение локального репозитория к удаленному серверу
+$ sudo git remote -v # Список удаленных репозиториев, настроенных в данный момент
+origin	https://github.com/hijadelaluuna/lab02.git (fetch)
+origin	https://github.com/hijadelaluuna/lab02.git (push)
+$ sudo git pull origin master
+$ sudo touch README.md # Установка времени последнего изменения файла
+$ git status # Список измененных файлов
+$ sudo git add README.md # Добавление файлов в индекс
+$ sudo git commit -m"added README.md"
+[master (корневой коммит) 47b92e9] added README.md
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 README.md
 $ git push origin master
-```
+
 
 Добавить на сервисе **GitHub** в репозитории **lab02** файл **.gitignore**
 со следующем содержимом:
 
-```ShellSession
 *build*/
 *install*/
 *.swp
 .idea/
-```
 
-```ShellSession
-$ git pull origin master
-$ git log
-```
 
-```ShellSession
-$ mkdir sources
-$ mkdir include
-$ mkdir examples
-$ cat > sources/print.cpp <<EOF
-#include <print.hpp>
+$ git pull origin master # Объединение изменений, присутствующих в удаленном репозитории, в локальный рабочий каталог
+$ git log # Список коммитов за все время существования репозитория.
+commit 47b92e954b7eec9ee446e90764b8d0b86daf7740 (HEAD -> master)
+Author: hijadelaluuna <anastasiyasechina46@gmail.com>
+Date:   Sun Apr 21 18:10:13 2019 +0000
+
+    added README.md
+
+Создание директорий в рабочем каталоге и заголовочного файла **print.cpp** в локальном репозитории.
+
+$ sudo mkdir sources
+$ sudo mkdir include
+$ sudo mkdir examples
+$ cat > sources/print.cpp <<EOF # Создание файла с расширением .hpp
+#include <print.cpp>
 
 void print(const std::string& text, std::ostream& out)
 {
@@ -87,9 +102,9 @@ void print(const std::string& text, std::ofstream& out)
   out << text;
 }
 EOF
-```
 
-```ShellSession
+
+
 $ cat > include/print.hpp <<EOF
 #include <fstream>
 #include <iostream>
@@ -98,9 +113,9 @@ $ cat > include/print.hpp <<EOF
 void print(const std::string& text, std::ofstream& out);
 void print(const std::string& text, std::ostream& out = std::cout);
 EOF
-```
 
-```ShellSession
+
+
 $ cat > examples/example1.cpp <<EOF
 #include <print.hpp>
 
@@ -109,9 +124,9 @@ int main(int argc, char** argv)
   print("hello");
 }
 EOF
-```
 
-```ShellSession
+
+
 $ cat > examples/example2.cpp <<EOF
 #include <print.hpp>
 
@@ -123,11 +138,9 @@ int main(int argc, char** argv)
   print(std::string("hello"), file);
 }
 EOF
-```
 
-```ShellSession
 $ edit README.md
-```
+
 
 ```ShellSession
 $ git status
@@ -138,7 +151,7 @@ $ git push origin master
 
 ## Report
 
-```ShellSession
+
 $ cd ~/workspace/labs/
 $ export LAB_NUMBER=02
 $ git clone https://github.com/tp-labs/lab${LAB_NUMBER}.git tasks/lab${LAB_NUMBER}
